@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html translate="no">
+  <head>
+    <meta charset="utf-8" />
+
+    <title>Decent Exchange</title>
+    <meta name="description" content="Swap or provide liquidity on the Uniswap Protocol" />
+
+    <!--
+      %PUBLIC_URL% will be replaced with the URL of the `public` folder during build.
+      Only files inside the `public` folder can be referenced from the HTML.
+    -->
+    <link rel="shortcut icon" type="image/png" href="%PUBLIC_URL%/favicon.png" />
+    <link rel="apple-touch-icon" sizes="192x192" href="%PUBLIC_URL%/images/192x192_App_Icon.png" />
+    <link rel="apple-touch-icon" sizes="512x512" href="%PUBLIC_URL%/images/512x512_App_Icon.png" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="theme-color" content="#ff007a" />
+    <meta name="fortmatic-site-verification" content="j93LgcVZk79qcgyo" />
+
+    <!--
+      manifest.json provides metadata used when the app is installed as a PWA.
+      See https://developers.google.com/web/fundamentals/web-app-manifest/
+    -->
+    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+
+    <link rel="preconnect" href="https://www.google-analytics.com/">
+
+    <link rel="preload" href="%PUBLIC_URL%/fonts/Inter-roman.var.woff2" as="font" type="font/woff2" crossorigin>
+
+    <style>
+        * {
+            font-family: 'Inter', sans-serif;
+            box-sizing: border-box;
+        }
+
+        /**
+          Explicitly load Inter var from public/ so it does not block LCP's critical path.
+        */
+        @font-face {
+            font-family: 'Inter custom';
+            font-weight: 100 900;
+            font-style: normal;
+            font-display: block;
+            font-named-instance: 'Regular';
+            src: url(%PUBLIC_URL%/fonts/Inter-roman.var.woff2) format("woff2 supports variations(gvar)"),
+                url(%PUBLIC_URL%/fonts/Inter-roman.var.woff2) format("woff2-variations"),
+                url(%PUBLIC_URL%/fonts/Inter-roman.var.woff2) format("woff2");
+        }
+
+        @supports (font-variation-settings: normal) {
+            * {
+                font-family: 'Inter custom', sans-serif;
+            }
+        }
+
+        html,
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        button {
+            user-select: none;
+        }
+
+        html {
+            font-size: 16px;
+            font-variant: none;
+            font-smooth: always;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+            font-feature-settings: 'ss01' on, 'ss02' on, 'cv01' on, 'cv03' on;
+        }
+
+        #background-radial-gradient {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            pointer-events: none;
+            width: 200vw;
+            height: 200vh;
+            background: radial-gradient(50% 50% at 50% 50%, #fc077d10 0%, rgba(255, 255, 255, 0) 100%);
+            transform: translate(-50vw, -100vh);
+            z-index: -1;
+        }
+
+        html {
+            min-height: 100%;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            html {
+                background-color: #212429;
+            }
+        }
+        @media (prefers-color-scheme: light) {
+            html {
+                background-color: #F7F8FA;
+            }
+        }
+    </style>
+  </head>
+  <body>
+    <noscript>You need to enable JavaScript to run this app.</noscript>
+
+    <!-- The root is the container of the app -->
+    <div id="root">
+      <!-- Triggers the font to load immediately and then is replaced by the app -->
+      <div>&emsp;</div>
+    </div>
+
+    <div id="background-radial-gradient"></div>
+
+    <!--
+      This HTML file is a template.
+      If you open it directly in the browser, you will see an empty page.
+
+      You can add webfonts, meta tags, or analytics to this file.
+      The build step will place the bundled scripts into the <body> tag.
+
+      To begin the development, run `npm start` or `yarn start`.
+      To create a production bundle, use `npm run build` or `yarn build`.
+    -->
+    <body>
+      <div class="navbar">
+              <img src="decent.jpeg">
+              <a>Home</a>
+              <a>Docs</a>
+              <a onclick="email()">Get Started</a>   
+      </div> 
+     
+        
+        <!-- Earnings (Monthly) Card Example -->
+          <div class="align-items-center">
+              <div class="card-body align-items-center">
+                      <div class="col mr-2 align-items-center">
+                          <div class="text-xs font-weight-bold text-success text-uppercase mb-1" style= "text-align:center;">
+                              Balance (Available)</div>
+                          <div class="h5 font-weight-bold text-primary text-uppercase mb-1">
+                            <h4 style= "text-align:center;"> R0.00</h4>
+                           </div>
+                  
+                      <div class="middlecontainer " style= "text-align:center;" >
+                          <div class="token1" style= "text-align:center;" >
+                          <label for="Tokens">From:</label>
+                          <select name="Tokens" id="Tokens">
+                          <option value="ETH">Ethereum</option>
+                          <option value="BTC">Bitcoin</option>
+                          <option value="Dai">Dai</option>
+                          <option value="Tether">Tether</option>
+                          <input type="number" placeholder="0.00">
+                          </select>
+                          </div>
+                          <div class="token2 ">
+                              <label for="Tokens">To:</label>
+                              <select name="Tokens" id="Tokens">
+                              <option value="ETH">Ethereum</option>
+                              <option value="BTC">Bitcoin</option>
+                              <option value="Dai">Dai</option>
+                              <option value="Tether">Tether</option>
+                              <option value="Spark">Spark</option>
+
+                              <input type="number" placeholder="0.00">
+                              </select>
+                              </div>
+                              
+                              <div class="exchangebutton">
+                                  <button>Exchange</button>
+                                  </div>
+                      </div>
+                     
+                  </div>
+              </div>
+          </div>
+        </div>
+        
+</div>
+</div>
+
+        </div>
+          <div class="card border-left-success shadow h-100 py-2 align-items-center">
+              <div class="card-body align-items-center">
+                      <div class="col mr-2">
+                          <div class="appcontainer" style= "text-align:center;">
+          
+                              <input placeholder="Deposit amount:">
+                              <br>
+                              <input placeholder="Name on Card:" id="name">
+                              <br>
+                              <input placeholder="Card Number:" id="Cardnumber" type="number">
+                              <br>
+                              <input placeholder="MM/YY">
+                              <br>
+                              <input placeholder="CVV:">
+                              <br>
+                              <p><input type="checkbox" required> Agree to Terms and conditions of Test deposit</p>
+                              <p><input type="checkbox" required>This is a test Deposit no real transaction will take place</p>
+                              <button >Make test Deposit</button>
+                          </div>  
+                      </div>
+                      <div class="col-auto">
+                      </div>
+                  </div>
+              </div>
+          </div>
+        </div>
+        <style>
+          .para p{
+              display: flex;
+              flex-direction: column;
+          }
+         .apps img{
+             position: relative;
+             z-index: -1;
+             width: 200px;
+         }
+         .apps p{
+             position: absolute;
+             z-index:1;
+             top: 27cm;
+             left: 120px;
+             flex-direction: column;
+         }
+         .apps b{
+          position: absolute;
+          z-index:1;
+          
+          margin-top: 25px;
+          top: 0;
+          left: 0;
+          flex-direction: column;
+         }
+         
+          body{
+              background-color: white;
+          }
+          .navbar a{
+              padding: 50px;
+              flex-grow: 1;
+              flex-shrink: 1;
+  
+  
+          }
+          .navbar{ 
+              flex-grow: 1;
+              height: 2.5cm;
+              position: sticky;
+              display: flex;
+              flex-direction: row;
+          }
+          .navbar img{
+              width: 200px;
+              height: 100px;
+              position: sticky;
+              margin-top: 10px;
+              
+          }
+          .container{
+              display: flex;
+              flex-grow: 1;
+  
+          }
+          .app{
+              max-width: 100%;
+              width: auto;
+              display: flex;
+              flex-direction: row;
+              flex-grow: 1;
+          }
+          .appcontainer{
+              flex-direction: column;
+              max-width: 100%;
+              width: auto;
+              display: flex;
+              flex-grow: 1;
+          }
+          .app img {
+              width: 400px;
+              position: relative;
+          }
+          .apps h1 {
+              position: relative;
+              width: 300px;
+              text-align: center;
+              margin-top: 150px;
+              margin-left:10 ;
+          }
+          .app input{
+              border: #EEEAE7;
+              text-align: center;
+          }
+          .app button{
+              width: 3cm;
+              height: 1cm;
+              border-radius: 10px;
+              left: 35%;
+              position: relative;
+              border: #EEEAE7;
+          }
+          .app button:hover{
+              background-color: #2A6FF2;
+          }
+          .app p {
+              left: 20;
+              top:10;
+          }
+          .card-body{
+              max-width: 100%;
+              width: 100%;
+              flex-grow: 1;
+              display: flex;
+          }
+          .card{
+              max-width: 100%;
+              width: auto;
+              display: flex;
+              flex-direction: column;
+              flex-grow: 1;
+          }
+          .card img {
+              width: 400px;
+              position: relative;
+          }
+          .card h1 {
+              width: 350px;
+              text-align: center;
+              margin-top: 150px;
+          }
+          .card button{
+              max-width: 100%;
+              width: auto;
+              height: 2cm;
+              border-radius: 10px;
+              position: relative;
+              border: #EEEAE7;
+          }
+          .card button:hover{
+              background-color: #2A6FF2;
+          }
+          .header{
+              text-align: center;
+              color: #2A6FF2;
+          }
+          .services{
+              display: flex;
+              gap: 20px;
+  
+          }
+          .box1{
+              width: 375px;
+              height: 250px;
+              text-align: center;
+              background-color: #2A6FF2;
+              border-radius: 10px;
+              flex-grow: 1;
+              color: white;
+  
+          }
+          .box2{
+              width: 375px;
+              text-align: center;
+              color: white;
+              background-color: #2A6FF2;
+              border-radius: 10px;
+              flex-grow: 1;
+  
+  
+  
+          }
+          .box3{
+              width: 375px;
+              text-align: center;
+              background-color: #2A6FF2;
+              border-radius: 10px;
+              flex-grow: 1;
+              color: white;
+          }
+          .Exchangetokens h1{
+              display: flex;
+              max-width: 250px;
+              margin: auto;
+              flex-grow: 1;
+              flex-shrink: 1;
+              text-align: center;
+              margin-top: 25px;
+          
+              
+          }
+
+          .token1{
+              
+              position: relative;
+              margin-top: 10px;
+          }
+          .token2{
+              
+              position: relative;
+              
+             
+      
+          }
+          .token1 input{
+              position: relative;
+              
+              
+          
+          }
+          .token2 input{
+              position: relative;
+              margin-top: 1.5cm;
+              
+          }
+          .exchangebutton button{
+              position: relative;
+              margin-top: 1.7cm;
+              padding: 20px;
+              border-radius: 10px;
+              border-width: 0px;
+              max-width: 100%;
+              width: auto;
+          }
+          .exchangebutton button:hover{
+              background-color:#2A6FF2;
+          }
+      </style>
+  </body>
+</html>
